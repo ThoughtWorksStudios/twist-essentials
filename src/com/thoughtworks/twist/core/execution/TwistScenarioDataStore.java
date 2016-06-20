@@ -2,6 +2,9 @@ package com.thoughtworks.twist.core.execution;
 
 import com.thoughtworks.gauge.datastore.DataStoreFactory;
 
+/**
+ * TwistScenarioDataStore is a wrapper for using scenario level DataStore of Gauge.
+ */
 public class TwistScenarioDataStore {
     public Object put(Object key, Object value) {
         if (key == null) {

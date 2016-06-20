@@ -1,5 +1,8 @@
 package com.thoughtworks.twist.core.execution;
 
+/**
+ * TwistDataStoreFactory is a wrapper for DataStores in Gauge.
+ */
 public class TwistDataStoreFactory {
 	
 	public TwistScenarioDataStore getScenarioStore() {

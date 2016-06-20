@@ -2,6 +2,9 @@ package com.thoughtworks.twist.gauge.migration;
 
 import junit.framework.Assert;
 
+/**
+ * TwistVerification is a wrapper to various assert functions of JUnit.
+ */
 public class TwistVerification {
     public static void verify(boolean condition) {
         Assert.assertTrue((String)null, condition);

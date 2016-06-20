@@ -2,6 +2,9 @@ package com.thoughtworks.twist.core.execution;
 
 import com.thoughtworks.gauge.datastore.DataStoreFactory;
 
+/**
+ * TwistSuiteDataStore is a wrapper for using suite level DataStore of Gauge.
+ */
 public class TwistSuiteDataStore{
     public Object put(Object key, Object value) {
         if (key == null) {
