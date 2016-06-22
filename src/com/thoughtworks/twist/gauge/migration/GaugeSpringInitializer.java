@@ -1,6 +1,7 @@
 package com.thoughtworks.twist.gauge.migration;
 
 import com.thoughtworks.gauge.*;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.RootBeanDefinition;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -29,7 +30,7 @@ public class GaugeSpringInitializer {
         ClassInstanceManager.setClassInitializer(new ClassInitializer() {
             @Override
             public Object initialize(Class<?> aClass) throws Exception {
-                registerJavaBean(getBeanName(aClass.getSimpleName()), aClass, elementContext, false, true);
+                registerJavaBean(getBeanName(aClass.getSimpleName()), aClass, elementContext, false);
                 return bean(getBeanName(aClass.getSimpleName()));
             }
         });
@@ -99,15 +100,16 @@ public class GaugeSpringInitializer {
         }
     }
 
-    private void registerJavaBean(String beanId, Class<?> aClass, GenericApplicationContext context, boolean lazy, boolean singleton) {
+    private void registerJavaBean(String beanId, Class<?> aClass, GenericApplicationContext context, boolean lazy) {
         String beanName = getBeanName(beanId);
         boolean containsDefinition = context.containsBeanDefinition(beanName);
-        if (containsDefinition && singleton) {
+        if (containsDefinition) {
             return;
         }
-        RootBeanDefinition beanDefinition = new RootBeanDefinition(aClass, AbstractBeanDefinition.AUTOWIRE_AUTODETECT);
+        RootBeanDefinition beanDefinition = new RootBeanDefinition(aClass);
+        beanDefinition.setAutowireMode(AbstractBeanDefinition.AUTOWIRE_AUTODETECT);
         beanDefinition.setLazyInit(lazy);
-        beanDefinition.setSingleton(singleton);
+        beanDefinition.setScope(BeanDefinition.SCOPE_SINGLETON);
         context.registerBeanDefinition(beanName, beanDefinition);
     }
 
